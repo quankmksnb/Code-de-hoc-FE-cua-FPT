@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocRefine | AI-Powered Document Transformation</title>
+    <meta name="description" content="Transform and modify your documents instantly with AI. Only $4.99 per document.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">DocRefine</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing" class="btn-primary">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Transform Your Documents <span class="highlight">Instantly</span></h1>
+                <p class="fade-in delay-1">Effortlessly modify, format, and enhance your documents using our state-of-the-art AI engine. Professional results in seconds.</p>
+                <div class="hero-btns fade-in delay-2">
+                    <a href="#upload-section" class="btn-primary-large">Start Now</a>
+                    <a href="#pricing" class="btn-secondary-large">View Pricing</a>
+                </div>
+            </div>
+            <div class="hero-image-container fade-in delay-3">
+                <img src="hero.png" alt="AI Document Transformation illustration" class="hero-image">
+                <div class="glass-orb"></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="upload-section" class="upload-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Import Your Document</h2>
+                <p>Drag and drop or click to upload your document for transformation.</p>
+            </div>
+            
+            <div id="drop-zone" class="drop-zone">
+                <div class="drop-zone-content">
+                    <div class="upload-icon">↑</div>
+                    <h3>Drag & Drop Files</h3>
+                    <p>or click to browse from directory</p>
+                    <span class="file-info text-muted">Supports PDF, DOCX, TXT (Max 25MB)</span>
+                    <input type="file" id="file-input" hidden>
+                </div>
+                
+                <div id="progress-container" class="progress-container hidden">
+                    <div class="process-steps">
+                        <span class="step active">Scanning</span>
+                        <span class="step">Transforming</span>
+                        <span class="step">Finalizing</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <p id="status-text">Uploading document...</p>
+                </div>
+
+                <div id="success-state" class="success-state hidden">
+                    <div class="success-icon">✓</div>
+                    <h3>Document Ready!</h3>
+                    <p>Your document has been transformed. Proceed to checkout to download.</p>
+                    <a href="#pricing" class="btn-primary">Go to Payment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="pricing-card glassmorphism">
+                <div class="pricing-header">
+                    <span class="badge">Most Popular</span>
+                    <h3>Single Transformation</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">4.99</span>
+                        <span class="period">/ document</span>
+                    </div>
+                </div>
+                <ul class="pricing-features">
+                    <li>AI-Powered Modification</li>
+                    <li>Supports all major formats</li>
+                    <li>High-resolution export</li>
+                    <li>24/7 Priority support</li>
+                    <li>Secure document storage</li>
+                </ul>
+                <button class="btn-primary-block" id="pay-button">Purchase Transformation</button>
+                <p class="payment-note">Secure payment via Stripe or PayPal</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DocRefine. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

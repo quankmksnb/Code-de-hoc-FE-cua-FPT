@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocRefine | AI Document Transformer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+
+        /* Hero */
+        .hero { padding: 8rem 0 4rem; text-align: center; }
+        .hero h1 { font-family: 'Outfit'; font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.2; }
+        .hero h1 span { background: linear-gradient(to right, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 3rem; }
+
+        /* Upload Zone */
+        .upload-card {
+            max-width: 800px; margin: 0 auto 6rem;
+            background: var(--bg-card);
+            border: 2px dashed var(--glass-border);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .upload-card:hover { border-color: var(--primary); background: rgba(139, 92, 246, 0.05); }
+        .upload-icon { font-size: 3rem; margin-bottom: 1rem; color: var(--primary); }
+
+        /* Pricing Area */
+        .pricing { padding: 4rem 0 8rem; }
+        .pricing-card {
+            max-width: 400px; margin: 0 auto;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .price { font-size: 3rem; font-weight: 700; margin: 1.5rem 0; font-family: 'Outfit'; }
+        .price span { font-size: 1.2rem; color: var(--text-muted); font-weight: 400; }
+
+        .btn-primary {
+            display: inline-block; width: 100%;
+            background: var(--primary); color: white;
+            padding: 1rem; border-radius: 12px;
+            text-decoration: none; font-weight: 600;
+            border: none; cursor: pointer; transition: var(--transition);
+        }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
+
+        /* Progress Simulation */
+        .progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; margin: 2rem 0; overflow: hidden; display: none; }
+        .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
+        .hidden { display: none !important; }
+
+        .success-msg { color: #10b981; font-weight: 600; margin-top: 1rem; display: none; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <div class="logo">✦ DocRefine</div>
+        <div class="nav-links">
+            <a href="#pricing" class="btn-primary" style="padding: 0.5rem 1.25rem;">Pricing</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>Transform Documents <span>Instantly</span></h1>
+        <p>Expertly change layouts, formatting, and file types using our advanced AI engine. Fast, secure, and professional.</p>
+        
+        <div id="upload-zone" class="upload-card">
+            <div id="initial-state">
+                <div class="upload-icon">↑</div>
+                <h3>Click or Drag Document Here</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">Supports PDF, DOCX, and Text files</p>
+                <input type="file" id="file-input" hidden>
+            </div>
+
+            <div id="processing-state" class="hidden">
+                <h3 id="status-text">Uploading...</h3>
+                <div class="progress-bar" id="progress-bar" style="display: block;">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div id="success-state" class="hidden">
+                <div style="font-size: 3rem; color: #10b981;">✓</div>
+                <h3>Document Successfully Transformed!</h3>
+                <p>Proceed to payment to download your file.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="pricing">
+    <div class="container">
+        <div class="pricing-card">
+            <span style="background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">BASIC PLAN</span>
+            <h3>Single Processing</h3>
+            <div class="price">$4.99 <span>/ doc</span></div>
+            <ul style="list-style: none; text-align: left; margin-bottom: 2rem; font-size: 0.95rem;">
+                <li style="margin-bottom: 0.8rem;">✓ AI-Powered Transformation</li>
+                <li style="margin-bottom: 0.8rem;">✓ Premium Formatting</li>
+                <li style="margin-bottom: 0.8rem;">✓ Multi-format Export</li>
+            </ul>
+            <button class="btn-primary" onclick="alert('Proceeding to Checkout - $4.99 USD')">Purchase Now</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
+    const initialState = document.getElementById('initial-state');
+    const processingState = document.getElementById('processing-state');
+    const successState = document.getElementById('success-state');
+    const progressFill = document.getElementById('progress-fill');
+    const statusText = document.getElementById('status-text');
+
+    uploadZone.addEventListener('click', () => {
+        if (initialState.classList.contains('hidden')) return;
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) startSimulation();
+    });
+
+    function startSimulation() {
+        initialState.classList.add('hidden');
+        processingState.classList.remove('hidden');
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 20;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                setTimeout(() => {
+                    processingState.classList.add('hidden');
+                    successState.classList.remove('hidden');
+                }, 500);
+            }
+            progressFill.style.width = progress + '%';
+            if (progress > 50) statusText.innerText = 'Refining content...';
+            if (progress > 80) statusText.innerText = 'Finalizing export...';
+        }, 400);
+    }
+</script>
+
+</body>
+</html>
